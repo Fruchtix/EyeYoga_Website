@@ -1,9 +1,13 @@
 import React from "react";
-// import logo from "../../assets/png/logo.png";
 import styles from "./eye.module.css";
+import { WebcamComponent } from "../../helpers";
 
 function Eye(props) {
-  return <div className={styles.container}>Eye</div>;
+  return (
+    <div className={styles.container}>
+      <WebcamComponent />
+    </div>
+  );
 }
 
 export default Eye;
