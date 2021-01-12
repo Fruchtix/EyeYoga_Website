@@ -48,77 +48,64 @@ export default function WebcamComponent() {
 
       // console.log(predictions);
 
-      const ctx = canvasRef.current.getContext("2d");
-      drawMesh(predictions, ctx);
+      // const ctx = canvasRef.current.getContext("2d");
+      // drawMesh(predictions, ctx);
 
       if (predictions.length > 0) {
         for (let i = 0; i < predictions.length; i++) {
-          const rightEyeIris = {
-            name: "rightEyeIris",
-            data: predictions[i].annotations.rightEyeIris,
-          };
-          const leftEyeIris = {
-            name: "leftEyeIris",
-            data: predictions[i].annotations.leftEyeIris,
-          };
-          const rightEyeLower = {
-            name: "rightEyeLower",
-            data: predictions[i].annotations.rightEyeLower0,
-          };
-          const leftEyeLower = {
-            name: "leftEyeLower",
-            data: predictions[i].annotations.leftEyeLower0,
-          };
-          const rightEyeUpper = {
-            name: "rightEyeUpper",
-            data: predictions[i].annotations.rightEyeUpper0,
-          };
-          const leftEyeUpper = {
-            name: "leftEyeUpper",
-            data: predictions[i].annotations.leftEyeUpper0,
-          };
-
-          const keypoints = [
+          const {
             rightEyeIris,
-            // leftEyeIris,
-            rightEyeLower,
-            // leftEyeLower,
-            // leftEyeUpper,
-            // rightEyeUpper,
-          ];
+            leftEyeIris,
+            rightEyeLower0,
+            rightEyeLower1,
+            leftEyeLower0,
+            leftEyeLower1,
+            rightEyeUpper0,
+            rightEyeUpper1,
+            leftEyeUpper0,
+            leftEyeUpper1,
+          } = predictions[i].annotations;
 
-          //calculate eyewidth
-          const eyewidth = rightEyeLower.data[8][0] - rightEyeLower.data[0][0];
+          //calculate eye metrics
+          const eyewidthRight = rightEyeLower0[8][0] - rightEyeLower0[0][0];
+          const eyewidthLeft = leftEyeLower0[8][0] - leftEyeLower0[0][0];
+          const eyeHeightRight = rightEyeLower1[3][1] - rightEyeUpper1[3][1];
 
           if (
-            rightEyeIris.data[1][0] >
-            rightEyeLower.data[8][0] - eyewidth * 0.25
+            rightEyeIris[1][0] >
+            rightEyeLower0[8][0] - eyewidthRight * 0.25
           ) {
-            console.log("schaut nach links");
+            console.log("schaut nach links - rechtes Auge");
           }
 
-          if (
-            rightEyeIris.data[3][0] <
-            rightEyeLower.data[0][0] + eyewidth * 0.1
-          ) {
-            console.log("schaut nach rechts");
+          if (leftEyeIris[1][0] > leftEyeLower0[8][0] - eyewidthLeft * 0.25) {
+            console.log("schaut nach links - linkes Auge");
           }
 
-          // else {
-          //   console.log("Iris Left" + rightEyeIris.data[3][0]);
-          //   console.log("Iris Right" + rightEyeIris.data[1][0]);
-          //   console.log("Lower 8:" + rightEyeLower.data[8][0]);
-          //   console.log("Lower 0:" + rightEyeLower.data[0][0]);
-          //   console.log("width:" + eyewidth);
+          // if (
+          //   rightEyeIris[3][0] <
+          //   rightEyeLower0[0][0] + eyewidthRight * 0.1125
+          // ) {
+          //   console.log("schaut nach rechts - rechtes Auge");
           // }
 
-          keypoints.forEach((element) => {
-            for (let i = 0; i < element.data.length; i++) {
-              const [x, y, z] = element.data[i];
+          // if (
+          //   rightEyeIris[0][1] <
+          //   rightEyeLower1[3][1] - eyeHeightRight * 0.5
+          // ) {
+          //   console.log("schaut nach oben - rechtes Auge");
+          // }
 
-              // console.log(`Keypoint ${element.name} ${i}: [${x}, ${y}, ${z}]`);
-            }
-          });
+          // if (
+          //   rightEyeIris[0][1] >
+          //   rightEyeLower1[3][1] - eyeHeightRight * 0.335
+          // ) {
+          //   console.log("schaut nach unten - rechtes Auge");
+          // }
+
+          // if (rightEyeIris[1][0] - rightEyeIris[3][0] < eyewidthRight * 0.385) {
+          //   console.log("Augen sind zu - rechtes Auge");
+          // }
         }
       }
     }
@@ -142,6 +129,7 @@ export default function WebcamComponent() {
           width: 720,
           height: 500,
           // zIndex: -100,
+          display: "none",
         }}
       />
       <canvas

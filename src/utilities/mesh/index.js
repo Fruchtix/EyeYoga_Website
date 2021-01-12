@@ -2665,9 +2665,9 @@ export const drawMesh = (predictions, ctx) => {
         ...predictions[i].annotations.rightEyeIris,
         // ...predictions[i].annotations.leftEyeIris,
         // ...predictions[i].annotations.leftEyeLower0,
-        ...predictions[i].annotations.rightEyeLower0,
+        ...[predictions[i].annotations.rightEyeLower1[3]],
         // ...predictions[i].annotations.leftEyeUpper0,
-        // ...predictions[i].annotations.rightEyeUpper0,
+        ...[predictions[i].annotations.rightEyeUpper1[3]],
       ];
 
       //  Draw Triangles
