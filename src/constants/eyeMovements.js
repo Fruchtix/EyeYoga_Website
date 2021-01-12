@@ -1,0 +1,10 @@
+export const looksLeftWithRightEye = "looksLeftWithRightEye";
+export const looksLeftWithLeftEye = "looksLeftWithLeftEye";
+export const looksRightWithLeftEye = "looksRightWithLeftEye";
+export const looksRightWithRightEye = "looksRightWithRightEye";
+export const looksUpWithRightEye = "looksUpWithRightEye";
+export const looksUpWithLeftEye = "looksUpWithLeftEye";
+export const looksDownWithRightEye = "looksDownWithRightEye";
+export const looksDownWithLeftEye = "looksDownWithLeftEye";
+export const closeWithRightEye = "closeWithRightEye";
+export const closeWithLeftEye = "closeWithLeftEye";

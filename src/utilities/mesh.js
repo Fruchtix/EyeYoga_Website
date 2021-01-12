@@ -2658,16 +2658,16 @@ const drawPath = (ctx, points, closePath) => {
 };
 
 // Drawing Mesh
-export const drawMesh = (predictions, ctx) => {
+export default drawMesh = (predictions, ctx) => {
   if (predictions.length > 0) {
     for (let i = 0; i < predictions.length; i++) {
       const keypoints = [
-        ...predictions[i].annotations.rightEyeIris,
-        // ...predictions[i].annotations.leftEyeIris,
-        // ...predictions[i].annotations.leftEyeLower0,
-        ...[predictions[i].annotations.rightEyeLower1[3]],
-        // ...predictions[i].annotations.leftEyeUpper0,
-        ...[predictions[i].annotations.rightEyeUpper1[3]],
+        // ...predictions[i].annotations.rightEyeIris,
+        ...predictions[i].annotations.leftEyeIris,
+        ...predictions[i].annotations.leftEyeLower0,
+        // ...[predictions[i].annotations.rightEyeLower1[3]],
+        ...predictions[i].annotations.leftEyeUpper0,
+        // ...[predictions[i].annotations.rightEyeUpper1[3]],
       ];
 
       //  Draw Triangles
