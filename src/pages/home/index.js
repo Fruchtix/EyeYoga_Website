@@ -1,14 +1,10 @@
 import React from "react";
-import { EyeTracker } from "../../providers";
-import { Sequence } from "../../components";
-import styles from "./home.module.css";
+import { Programm } from "../../components";
 
 function Home() {
   return (
-    <div className={styles.container}>
-      <EyeTracker>
-        <Sequence />
-      </EyeTracker>
+    <div>
+      <Programm name={"30 Day Challenge"} />
     </div>
   );
 }

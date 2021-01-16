@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useState } from "react";
+import React, { createContext, useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detection";
 import "@tensorflow/tfjs-backend-webgl";
@@ -9,6 +9,13 @@ export const EyeMovementContext = createContext();
 export default function EyeTracker({ children }) {
   const [eyeMovements, setEyeMovements] = useState([]);
   const webcamRef = useRef(null);
+  let intervalID = 0;
+
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalID);
+    };
+  }, [intervalID]);
 
   const videoConstraints = {
     facingMode: "user",
@@ -21,7 +28,7 @@ export default function EyeTracker({ children }) {
       { shouldLoadIrisModel: true }
     );
 
-    setInterval(() => {
+    intervalID = setInterval(() => {
       detect(model);
     }, 100);
   };
